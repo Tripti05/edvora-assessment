@@ -47,7 +47,7 @@ export const ContextProvider = ({children}) => {
                 currentColor, setCurrentColor,
                 currentMode, setCurrentMode,
                 themeSettings, setThemeSettings,
-                setMode, setColor,
+                setMode, setColor, initialState,
             }}>
                 {children}
         </StateContext.Provider>

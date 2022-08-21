@@ -22,7 +22,7 @@ const NavButton =({ title, customFunc, icon, color, dotColor}) => (
 
 function Navbar() {
 
-  const { activeMenu, setActiveMenu, isClicked, setIsClicked, handleClick, screenSize, setScreenSize, currentColor} = useStateContext();
+  const { activeMenu, setActiveMenu, isClicked, handleClick, setScreenSize, screenSize, currentColor} = useStateContext();
 
   useEffect(() => {
     const handleResize = () => setScreenSize(window.innerWidth);
@@ -32,7 +32,7 @@ function Navbar() {
     handleResize();
 
     return () => window.removeEventListener('resize', handleResize)
-  }, []);
+  },);
 
   useEffect(() => {
     if (screenSize <= 900) {
@@ -40,11 +40,13 @@ function Navbar() {
     } else {
       setActiveMenu(true);
     }
-  }, [screenSize]);
+  },);
+
+  const handleActiveMenu = () => setActiveMenu(!activeMenu);
 
   return (
     <div className="flex justify-between p-2 md:mx-6 relative">
-      <NavButton title="Menu" customFunc={() => setActiveMenu((prevActiveMenu) => !prevActiveMenu)} color={currentColor} icon={<AiOutlineMenu />} />
+      <NavButton title="Menu" customFunc={handleActiveMenu}  color={currentColor} icon={<AiOutlineMenu />} />
       <div className="flex">
       <NavButton title="Cart" customFunc={() => handleClick("cart")} color={currentColor} icon={<FiShoppingCart />} />
       <NavButton title="Chat" customFunc={() => handleClick("chat")} dotColor="#03C9D7" color={currentColor} icon={<BsChatLeft />} />
@@ -52,7 +54,7 @@ function Navbar() {
 
       <TooltipComponent content="Profile" position="BottomCenter">
         <div className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg" onClick={() => handleClick("userProfile")} >
-          <img src={avatar} className="rounded-full w-8 h-8" />
+          <img src={avatar} className="rounded-full w-8 h-8" alt='avatar_img'/>
           <p>
             <span className="text-gray-400 text-14" >Hi,</span>{' '}
             <span className="text-gray-400 font-bold ml-1 text-14" >Admin</span>
